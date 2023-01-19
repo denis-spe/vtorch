@@ -1,12 +1,15 @@
+import sys
+sys.path.append(sys.path[0].replace("tests", ""))
+
 import unittest
 import torch
 from torch import nn
-from src.torchSeq.torchmodel import Sequential
-from src.torchSeq.metrics import Accuracy
+from torchmodel import Sequential
+from metrics import Accuracy
 from torchvision.datasets import MNIST
 from torch.utils.data import DataLoader
 from torchvision.transforms import ToTensor
-from src.torchSeq.data_generator import DataGenerator
+from data_generator import DataGenerator
 
 
 class TestSequential(unittest.TestCase):

@@ -2,9 +2,8 @@
 import torch
 import random
 import time
+from tqdm import tqdm
 from typing import Iterator, Tuple, Dict, Callable, Union
-from progress.bar import IncrementalBar
-from progress.colors import bold
 from torch import nn
 from torch.utils.data import DataLoader
 from torchinfo import summary
@@ -239,9 +238,8 @@ class Sequential(nn.Module):
         for epoch in range(epochs):
             if verbose:
                 print(f"\033[1m\nEpoch {epoch + 1}/{epochs}\033[0m")
-                bar = IncrementalBar(bold(""), color='white')
-                for _ in bar.iter(range(100)):
-                    sleep()
+                for _ in tqdm(range(100), ascii="•\\", bar_format='{l_bar}{bar:30}|'):
+                    time.sleep(0.1)
 
             # Train the data                
             train = self.train_process(train_data, metric=self.metrics_method)

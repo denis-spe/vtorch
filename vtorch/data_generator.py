@@ -13,9 +13,9 @@ class DataGenerator(Dataset):
     def __init__(
             self,
             n_row: int,
-            n_col,
+            n_col: int,
             noise: Union[float, int] = 3,
-            train_sample: bool = True,
+            split_data: bool = True,
             train_size: int = 75,
             test_size: int = 25,
             transform: Optional[Callable] = None) -> None:
@@ -42,7 +42,7 @@ class DataGenerator(Dataset):
         test_idx = idx[test_size:]
 
         self.transforms = transform
-        self.train = train_sample
+        self.train = split_data
 
     def __len__(self) -> int:
         return self.len
