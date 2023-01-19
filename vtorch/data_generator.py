@@ -15,7 +15,7 @@ class DataGenerator(Dataset):
             n_row: int,
             n_col: int,
             noise: Union[float, int] = 3,
-            split_data: bool = True,
+            split_data: bool = False,
             train_size: int = 75,
             test_size: int = 25,
             transform: Optional[Callable] = None) -> None:
@@ -60,3 +60,17 @@ class DataGenerator(Dataset):
                 return transformed_x, self.y[index]
             else:
                 return self.X[index, :], self.y[index]
+    
+    @property
+    def dataset(self):
+        X = torch.tensor([
+            _x
+            for _x, _ in self
+        ])
+
+        y = torch.tensor([
+            _y
+            for _, _y in self
+        ])
+
+        return (X, y)

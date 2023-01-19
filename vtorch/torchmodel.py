@@ -9,12 +9,6 @@ from torch.utils.data import DataLoader
 from torchinfo import summary
 
 
-def sleep():
-    t = 0.01
-    t += t * random.uniform(-0.1, 0.1)  # Add some variance
-    time.sleep(t)
-
-
 class Sequential(nn.Module):
     """
     Pass list of torch nn layers.
@@ -120,9 +114,13 @@ class Sequential(nn.Module):
         for batch, (x, y) in enumerate(data_loader):
             # Switch to device
             x, y = x.to(self.device), y.to(self.device)
-
-            # Make prediction
-            yhat = self.model(x)
+            
+            if self.model is None:
+                raise TypeError('Compile the model before fitting it with `model.compile`')
+            else:
+                # Make prediction
+                yhat = self.model(x)
+            
 
             # *** Backpropagation Process ***
 
